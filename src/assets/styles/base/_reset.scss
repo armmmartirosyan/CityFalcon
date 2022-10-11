@@ -1,14 +1,37 @@
-*{
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
-html{
-  font-size: calc(100vw / (1920/10));
+
+html {
+  font-size: calc(100vw / (1366 / 10));
 }
-body{
+
+body {
   font-size: 1.4rem;
   background-color: #fff;
   color: #000;
+  font-family: Lato, sans-serif;
+}
+
+.wrapper {
+  width: 100vw;
+  height: 100vh;
   overflow: hidden;
+}
+
+.main {
+  width: 100vw;
+  display: flex;
+}
+
+.aside{
+  width: calc(100% - 98.8rem);
+  background-color: #eeeeee;
+}
+
+.container {
+  width: 136.6rem;
+  margin: 0 auto;
 }

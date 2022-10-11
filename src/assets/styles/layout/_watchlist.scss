@@ -1,0 +1,219 @@
+.watchlist {
+  width: 98.8rem;
+  background-color: #f7f7f7;
+  padding: 2.3rem 2.3rem 0 7rem;
+
+  &__title {
+    font-size: 2.4rem;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #3971c1;
+    margin-bottom: 2rem;
+  }
+
+  &__subfilter {
+    padding: 2rem;
+    background-color: #fff;
+    width: 18.8rem;
+    position: absolute;
+    top: calc(100% + .6rem);
+    left: 0;
+    border-radius: .3rem;
+    display: none;
+
+    &__list{
+      display: flex;
+      flex-direction: column;
+    }
+
+    &__title {
+      font-size: 1.3rem;
+      font-weight: bold;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: normal;
+      letter-spacing: normal;
+      color: #292929;
+      margin-bottom: 1.5rem;
+    }
+
+    &__item {
+      margin-bottom: 2rem;
+      font-size: 1.4rem;
+      font-weight: normal;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: normal;
+      letter-spacing: normal;
+      color: #292929;
+
+      &__checkbox {
+        margin-right: 1rem;
+        width: 1.2rem;
+        height: 1.1rem;
+      }
+    }
+  }
+
+  &__tools {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 1.3rem;
+
+    &__box {
+      width: 10rem;
+      height: 4rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: .1rem solid #e0e0e0;
+      border-radius: .3rem;
+      margin-right: .6rem;
+      cursor: pointer;
+      transition: background-color .4s;
+
+      &.open {
+        position: relative;
+        background-color: #e0e0e0;
+
+        &:before {
+          content: "";
+          position: absolute;
+          width: 0;
+          height: 0;
+          border-left: 1rem solid transparent;
+          border-right: 1rem solid transparent;
+          border-bottom: 1.5rem solid #e0e0e0;
+          bottom: -1.6rem;
+          left: calc(50% - 1rem);
+        }
+
+        & ~ .watchlist__tools__filters {
+          display: flex !important;
+        }
+      }
+
+      &:hover {
+        background-color: #e0e0e0;
+      }
+    }
+
+    &__img {
+      width: 1.5rem;
+      height: 1.5rem;
+      margin-right: 1rem;
+      color: #3971c1;
+    }
+
+    &__text {
+      font-size: 1.3rem;
+      font-weight: bold;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: normal;
+      letter-spacing: normal;
+      color: #292929;
+    }
+
+    &__filters {
+      width: 75.1rem;
+      background-color: #e0e0e0;
+      padding: 2rem 2.4rem;
+      justify-content: space-between;
+      position: relative;
+      margin-top: 1.5rem;
+      border-radius: .3rem;
+      display: none;
+
+      &__reset {
+        width: 17.2rem;
+        height: 4rem;
+        background-color: #3971c1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: .3rem;
+        color: #fff;
+        cursor: pointer;
+        font-size: 1.2rem;
+      }
+
+      &__item {
+        width: 17.2rem;
+        height: 4rem;
+        background-color: #fff;
+        display: flex;
+        justify-content: space-between;
+        border-radius: .3rem;
+
+        &.appear {
+          & .watchlist__subfilter {
+            display: unset;
+          }
+          & .watchlist__tools__filters__item__angle{
+            background-color: #f7f7f7;
+            &__icon{
+              transform: rotateZ(180deg);
+            }
+          }
+        }
+
+        &__box {
+          padding: .5rem 0 .5rem 1rem;
+          position: relative;
+        }
+
+        &__selected {
+          font-size: 1.3rem;
+          font-weight: bold;
+          font-stretch: normal;
+          font-style: normal;
+          line-height: normal;
+          letter-spacing: normal;
+          color: #292929;
+        }
+
+        &__type {
+          font-size: 1rem;
+          font-weight: normal;
+          font-stretch: normal;
+          font-style: normal;
+          line-height: 1.6;
+          letter-spacing: 0.05rem;
+          color: #666;
+        }
+
+        &__angle {
+          width: 3.1rem;
+          height: 100%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          background-color: inherit;
+          transition: background-color .4s;
+          cursor: pointer;
+          border-radius: 0 .3rem .3rem 0;
+
+          &__icon {
+            font-size: 1.2rem;
+            font-weight: normal;
+            font-stretch: normal;
+            font-style: normal;
+            line-height: normal;
+            letter-spacing: normal;
+            color: #8c8c8c;
+            transform: rotateZ(0deg);
+            transition: all .4s;
+          }
+
+          &:hover {
+            background-color: #f7f7f7;
+          }
+        }
+      }
+    }
+  }
+}
