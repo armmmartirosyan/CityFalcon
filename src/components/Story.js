@@ -4,8 +4,10 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import user from "../assets/images/avatar.jpg";
 import {Link} from "react-router-dom";
 import classNames from "classnames";
+import moment from "moment";
 
-function Story() {
+function Story(props) {
+    let {title, desc, score, imgUrl, authorImg, authorName, time} = props;
     const [isCollapse, setIsCollapse] = useState(true);
 
     const handleCollapse = useCallback(() => {
@@ -15,30 +17,31 @@ function Story() {
     return (
         <article className={classNames('story', {collapse: isCollapse})}>
             <figure className="story__fig">
-                <img src={user} alt="Story" className="story__img"/>
+                <img src={imgUrl || user} alt="Story" className="story__img"/>
             </figure>
             <div className="story__body">
                 <h1 className="story__title">
                     <Link to='/' className="story__title__link">
-                        Apple Does A Lot Right, But Is Still Not A Good Long-Term Investment
+                        {title}
                     </Link>
                 </h1>
-                <p className="story__desc">
-                    Bullish for #Bitcoin and Gold: "The Dollar Has Broken Down From A Gigantic Top &amp; And Looks Set
-                    To Head Lower Again" Bullish for #Bitcoin and Gold: "The Dollar Has Broken Down From A Gigantic
-                    Top &amp; And Looks Set To Head Lower Again"
-                </p>
+                <p className="story__desc">{desc}</p>
                 <div className="story__author">
                     <figure className="story__author__fig">
-                        <img src={user} alt="Author" className="story__author__img"/>
+                        <img src={authorImg || user} alt="Author" className="story__author__img"/>
                     </figure>
-                    <h2 className="story__author__name">Business Insider</h2>
-                    <p className="story__author__date">16 hr ago</p>
+                    <h2 className="story__author__name">{authorName}</h2>
+                    <p className="story__author__date">{moment(time).fromNow()}</p>
                 </div>
             </div>
             <div className="story__aside">
-                <p className="story__aside__percent yellow">
-                    54%
+                <p className={
+                    classNames(
+                        'story__aside__percent',
+                        {yellow: score < 50, green: score >= 50}
+                    )}
+                >
+                    {`${score}%`}
                 </p>
                 <FontAwesomeIcon icon={faAngleDown} className="story__aside__angle" onClick={handleCollapse}/>
             </div>
