@@ -5,8 +5,8 @@ const api = axios.create({
 });
 
 class Api {
-    static getStories(){
-        return api.get('');
+    static getStories(search){
+        return api.get(`${search}`);
     }
 }
 export default Api;

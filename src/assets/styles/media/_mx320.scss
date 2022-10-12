@@ -1,0 +1,78 @@
+html {
+  font-size: calc(100vw / (320 / 10));
+}
+
+.watchlist{
+  &__title {
+    font-size: 1.9rem;
+  }
+  &__head {
+    flex-direction: column;
+  }
+  &__tools{
+    &__filters {
+      flex-wrap: wrap;
+      background-color: unset;
+      padding: 0;
+      &__reset{
+        display: none;
+      }
+    }
+    &__text{
+      display: none;
+    }
+    &__box {
+      width: 4rem;
+      height: 4rem;
+      padding: 1rem 1rem 1rem 2rem;
+      background-color: #fff;
+      &.open {
+        position: relative;
+        background-color: #fff;
+        &:before{
+          border-bottom: 1.5rem solid #fff;
+        }
+      }
+    }
+  }
+  & .subfilters{
+    width: 100%;
+    border-bottom: 0.1rem solid #f7f7f7;
+    &__control{
+      width: 100%;
+      &--menu-is-open{
+        width: 100%;
+      }
+    }
+    &__single-value {
+      bottom: 0.4rem;
+    }
+    &__indicator.subfilters__dropdown-indicator{
+      display: none;
+    }
+  }
+}
+.story {
+  &__body {
+    width: 100%;
+  }
+
+  &__aside {
+    width: 100%;
+    justify-content: space-between;
+    padding: 1.3rem 1.5rem;
+    &__percent{
+      border: 0 !important;
+      padding: 0;
+    }
+  }
+  &__row{
+    flex-wrap: wrap;
+  }
+  &__footer__btn {
+    flex-direction: column;
+    & svg{
+      margin: 0 0 0.5rem 0;
+    }
+  }
+}

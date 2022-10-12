@@ -1,0 +1,27 @@
+html {
+  font-size: calc(100vw / (525 / 10));
+}
+
+body{
+  font-size: 1.2rem;
+}
+
+.watchlist {
+  & .subfilters__control {
+    width: 10rem;
+  }
+
+  &__tools__filters__reset {
+    width: 10rem;
+  }
+}
+
+.story {
+  &__body {
+    width: 35rem;
+  }
+
+  &__aside {
+    width: calc(100% - 35rem - 6rem);
+  }
+}

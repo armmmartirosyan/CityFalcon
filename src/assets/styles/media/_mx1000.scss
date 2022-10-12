@@ -1,0 +1,12 @@
+html {
+  font-size: calc(100vw / (1000 / 10));
+}
+.story {
+  &__body {
+    width: 58rem;
+  }
+
+  &__aside {
+    width: calc(100% - 58rem - 6rem);
+  }
+}

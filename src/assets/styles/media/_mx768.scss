@@ -1,0 +1,39 @@
+html {
+  font-size: calc(100vw / (768 / 10));
+}
+
+.container {
+  width: 100%;
+}
+
+.watchlist {
+  width: 100%;
+  padding: 2.3rem 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+
+  & .subfilters__control {
+    width: 15rem;
+  }
+
+  &__head {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+  &__tools__filters {
+    margin-top: 0;
+    width: 100%;
+
+    &__reset {
+      width: 15rem;
+    }
+  }
+}
+
+.aside {
+  display: none;
+}

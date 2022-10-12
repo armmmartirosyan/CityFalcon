@@ -6,9 +6,9 @@ export default function* watcher() {
     yield takeLatest(GET_STORIES_REQUEST, getStoriesRequest);
 }
 
-function* getStoriesRequest() {
+function* getStoriesRequest({payload}) {
     try {
-        const {data} = yield call(Api.getStories);
+        const {data} = yield call(Api.getStories, payload.search);
 
         yield put({
             type: GET_STORIES_SUCCESS,
