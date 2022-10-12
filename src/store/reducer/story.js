@@ -4,6 +4,7 @@ let initialState = {
     status: '',
     data: {},
     message: '',
+    nextPageToken: '',
 };
 
 export default function reducer(state = initialState, action){
@@ -18,7 +19,8 @@ export default function reducer(state = initialState, action){
             return {
                 ...state,
                 status: action.payload.status,
-                data: action.payload.data
+                data: {...state.data, ...action.payload.data},
+                nextPageToken: action.payload.data.next_page_token,
             }
         }
         case GET_STORIES_FAIL: {

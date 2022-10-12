@@ -6,15 +6,18 @@
   justify-content: space-between;
   border: .1rem solid #e0e0e0;
   margin-bottom: .7rem;
-  &.collapse{
-    & .story__footer, & .story__desc{
+
+  &.collapse {
+    & .story__footer, & .story__desc {
       display: none;
     }
-    & .story__aside__angle{
+
+    & .story__aside__angle {
       transform: rotateZ(0deg);
     }
   }
-  &__row{
+
+  &__row {
     display: flex;
     justify-content: space-between;
     width: calc(100% - 6rem);
@@ -50,7 +53,8 @@
     &__link {
       text-decoration: none;
       color: inherit;
-      &:hover{
+
+      &:hover {
         text-decoration: underline;
       }
     }
@@ -124,11 +128,12 @@
       letter-spacing: normal;
       text-align: center;
 
-      &.green{
+      &.green {
         border: .1rem solid #56b467;
         color: #56b467;
       }
-      &.yellow{
+
+      &.yellow {
         border: .1rem solid #ffb300;
         color: #ffb300;
       }
@@ -155,23 +160,27 @@
     align-items: center;
     justify-content: flex-end;
     padding: 1rem 1.6rem;
-    border-top: .1rem solid  #e0e0e0;
-    &__btn{
+    border-top: .1rem solid #e0e0e0;
+
+    &__btn {
       display: flex;
       align-items: center;
       margin-left: 2rem;
       color: #414141;
       cursor: pointer;
-      &:hover{
+
+      &:hover {
         color: #3971c1;
         transition: color .4s;
       }
     }
-    &__icon{
+
+    &__icon {
       margin-right: .5rem;
       font-size: 1.4rem;
     }
-    &__text{
+
+    &__text {
       font-weight: 300;
       font-stretch: normal;
       font-style: normal;

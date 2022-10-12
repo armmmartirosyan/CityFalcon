@@ -16,7 +16,6 @@ function WatchList() {
 
     const refreshFunc = useCallback(() => {
         dispatch(getStoriesRequest(location.search));
-        console.log()
     }, [dispatch]);
 
     useEffect(() => {
@@ -25,6 +24,7 @@ function WatchList() {
 
         if (duration) {
             setAuto(duration);
+
             duration = +duration * 1000;
 
             interval = setInterval(refreshFunc, duration);
@@ -47,10 +47,7 @@ function WatchList() {
             </div>
             <div className="watchlist__content">
                 {
-                    status === 'request' ? <div>Loading...</div> : null
-                }
-                {
-                    status === 'ok' && !_.isEmpty(data.stories) ? (
+                    !_.isEmpty(data.stories) ? (
                         data.stories.map(story => (
                             <Story
                                 key={story.id}

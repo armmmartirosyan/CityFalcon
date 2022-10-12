@@ -15,16 +15,12 @@
   }
 
   .subfilters {
-    &__indicator{
-      padding: .7rem ;
+    &__indicator {
+      padding: .7rem;
+
       &-separator {
         display: none;
       }
-    }
-
-    &__value-container--is-multi {
-      position: relative;
-      bottom: .5rem;
     }
 
     &__dropdown-indicator {
@@ -70,8 +66,6 @@
       line-height: normal;
       letter-spacing: normal;
       color: #292929;
-      position: relative;
-      bottom: .5rem;
     }
 
     &__multi-value__remove {
@@ -88,55 +82,12 @@
     }
   }
 
-  &__subfilter {
-    padding: 2rem;
-    background-color: #fff;
-    width: 18.8rem;
-    position: absolute;
-    top: calc(100% + .6rem);
-    left: 0;
-    border-radius: .3rem;
-    display: none;
-
-    &__list {
-      display: flex;
-      flex-direction: column;
-    }
-
-    &__title {
-      font-size: 1.3rem;
-      font-weight: bold;
-      font-stretch: normal;
-      font-style: normal;
-      line-height: normal;
-      letter-spacing: normal;
-      color: #292929;
-      margin-bottom: 1.5rem;
-    }
-
-    &__item {
-      margin-bottom: 2rem;
-      font-size: 1.4rem;
-      font-weight: normal;
-      font-stretch: normal;
-      font-style: normal;
-      line-height: normal;
-      letter-spacing: normal;
-      color: #292929;
-
-      &__checkbox {
-        margin-right: 1rem;
-        width: 1.2rem;
-        height: 1.1rem;
-      }
-    }
-  }
-
   &__tools {
     display: flex;
     flex-wrap: wrap;
     margin-bottom: 1.3rem;
-    &.open{
+
+    &.open {
       & ~ .watchlist__tools__filters {
         display: flex !important;
       }

@@ -31,8 +31,8 @@ function Filters(props) {
 
     const handleChangeOrder = useCallback((tempValue) => {
         let search = qs.parse(location.search, {arrayFormat: 'comma'});
-
         search.order_by = tempValue ? tempValue : undefined;
+        search.limit = 20;
 
         navigate(`?${qs.stringify(search, {arrayFormat: 'comma'})}`);
     }, [navigate, location.search]);
@@ -40,17 +40,20 @@ function Filters(props) {
     const handleChangeLang = useCallback((tempValue) => {
         let search = qs.parse(location.search, {arrayFormat: 'comma'});
 
-        if (tempValue.includes('all') && search.languages && search.languages.length >= (languages.length - 1)) {
+        if (tempValue.includes('all')
+            && search.languages
+            && search.languages.length >= (languages.length - 1)) {
             search.languages = [];
         } else if (tempValue.includes('all')) {
             search.languages = languages.map(l => {
                 if (l.value !== 'all') return l.value
             })
-        } else if(tempValue === []){
+        } else if (tempValue === []) {
             search.languages = undefined;
-        }else {
+        } else {
             search.languages = tempValue;
         }
+        search.limit = 20;
 
         navigate(`?${qs.stringify(search, {arrayFormat: 'comma'})}`);
     }, [navigate, location.search]);
@@ -128,6 +131,7 @@ function Filters(props) {
                     classNamePrefix="subfilters"
                     isSearchable={false}
                     closeMenuOnSelect={false}
+                    isClearable={false}
                     isMulti
                     getOptionLabel={l => l.name}
                     getOptionValue={l => l.value}
