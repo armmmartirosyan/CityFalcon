@@ -15,6 +15,51 @@
   }
 
   .subfilters {
+    position: relative;
+
+    &__option{
+      display: flex;
+      align-items: center;
+      & input{
+        margin-right: .5rem;
+      }
+    }
+
+    &__placeholder{
+      font-size: 1.3rem;
+      font-weight: bold;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: normal;
+      letter-spacing: normal;
+      color: #292929;
+      margin: 0;
+    }
+
+    &__name-input {
+      position: absolute;
+      bottom: 0;
+      left: 1rem;
+      font-size: 1.2rem;
+      font-weight: normal;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: 1.33;
+      letter-spacing: 0.06rem;
+      color: #666;
+    }
+
+    &__name {
+      padding: 1.5rem 1.2rem;
+      font-size: 1.3rem;
+      font-weight: bold;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: normal;
+      letter-spacing: normal;
+      color: #292929;
+    }
+
     &__indicator {
       padding: .7rem;
 
@@ -46,6 +91,7 @@
       border-radius: 0.3rem;
       border: 0;
       cursor: pointer;
+      padding-left: 1rem;
 
       &--menu-is-open {
         & .subfilters__dropdown-indicator {
@@ -58,7 +104,7 @@
       }
     }
 
-    &__single-value {
+    &__single-value, &__multi-value__label {
       font-size: 1.3rem;
       font-weight: bold;
       font-stretch: normal;
@@ -66,6 +112,8 @@
       line-height: normal;
       letter-spacing: normal;
       color: #292929;
+      margin: 0;
+      padding: 0;
     }
 
     &__multi-value__remove {
@@ -76,9 +124,15 @@
       background-color: unset;
     }
 
-    &__value-container--has-value {
-      display: flex;
-      flex-wrap: nowrap;
+    &__value-container {
+      position: relative;
+      bottom: 0.6rem;
+      padding: 0;
+
+      &--has-value {
+        display: flex;
+        flex-wrap: nowrap;
+      }
     }
   }
 

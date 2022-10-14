@@ -15,7 +15,6 @@ function Wrapper(props) {
     const handleScroll = useCallback((e) => {
         if ((window.innerHeight + e.target.documentElement.scrollTop + 10)
             >= e.target.documentElement.scrollHeight) {
-            console.log(nextPageToken)
             let search = qs.parse(location.search, {arrayFormat: 'comma'});
             search.limit = 20;
             search.page_token = nextPageToken;

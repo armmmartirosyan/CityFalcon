@@ -7,8 +7,14 @@ body{
 }
 
 .watchlist {
-  & .subfilters__control {
-    width: 10rem;
+  & .subfilters{
+    &__name-input {
+      width: 50%;
+      overflow: hidden;
+    }
+    &__control {
+      width: 10rem;
+    }
   }
 
   &__tools__filters__reset {

@@ -6,7 +6,7 @@ import {useLocation, useNavigate} from "react-router-dom";
 import {getStoriesRequest} from "../store/actions/story";
 import {useDispatch} from "react-redux";
 import classNames from "classnames";
-import Select from 'react-select';
+import Select, {components, MenuListProps, OptionProps, ContainerProps} from 'react-select';
 import qs from "query-string";
 
 function Filters(props) {
@@ -17,21 +17,29 @@ function Filters(props) {
     const [lang, setLang] = useState([]);
     const [order, setOrder] = useState('');
     const [isAppearFilters, setIsAppearFilters] = useState(false);
-    const [refreshDuration, setRefreshDuration] = useState(autorefresh.find(a => +a.value === +auto));
+    const [refreshDuration, setRefreshDuration] = useState();
 
     useEffect(() => {
         let search = qs.parse(location.search);
         let lang = search.languages ? search.languages.split(',') : [];
+        let autorefreshDuration = localStorage.getItem('duration');
 
-        setOrder(orderBy.find(o => o.value === (search.order_by)));
+        setOrder(orderBy.find(o => o.value === (search.order_by)) || '');
         setLang(languages.filter(l => lang.includes(l.value)));
+        setRefreshDuration(autorefresh.find(a => +a.value === +autorefreshDuration));
 
         dispatch(getStoriesRequest(location.search));
     }, [location.search]);
 
     const handleChangeOrder = useCallback((tempValue) => {
         let search = qs.parse(location.search, {arrayFormat: 'comma'});
-        search.order_by = tempValue ? tempValue : undefined;
+
+        if((tempValue === search.order_by) || !tempValue){
+            search.order_by = undefined;
+        }else{
+            search.order_by = tempValue;
+        }
+
         search.limit = 20;
 
         navigate(`?${qs.stringify(search, {arrayFormat: 'comma'})}`);
@@ -40,17 +48,17 @@ function Filters(props) {
     const handleChangeLang = useCallback((tempValue) => {
         let search = qs.parse(location.search, {arrayFormat: 'comma'});
 
-        if (tempValue.includes('all')
+        if ((tempValue.includes('all')
             && search.languages
-            && search.languages.length >= (languages.length - 1)) {
+            && search.languages.length
+            >= (languages.length - 1))
+            || tempValue.length === 0) {
             search.languages = [];
         } else if (tempValue.includes('all')) {
             search.languages = languages.map(l => {
                 if (l.value !== 'all') return l.value
             })
-        } else if (tempValue === []) {
-            search.languages = undefined;
-        } else {
+        }else {
             search.languages = tempValue;
         }
         search.limit = 20;
@@ -59,10 +67,18 @@ function Filters(props) {
     }, [navigate, location.search]);
 
     const handleChangeAuto = useCallback((numb) => {
-        setAuto(numb);
+        if(+auto === +numb){
+            setAuto(0);
+            setRefreshDuration(0);
+            localStorage.removeItem(("duration"));
+        }else{
+            setAuto(numb)
+            setRefreshDuration(autorefresh.find(a => +a.value === +numb));
+            localStorage.setItem("duration", numb);
+        }
+
         clearInterval(interval);
-        localStorage.setItem("duration", numb);
-    }, [setAuto, interval]);
+    }, [setAuto, interval, auto, setRefreshDuration]);
 
     const handleAppearFilters = useCallback(() => {
         setIsAppearFilters(!isAppearFilters);
@@ -73,12 +89,44 @@ function Filters(props) {
     }, []);
 
     const handleReset = useCallback(() => {
-        setAuto(0);
-        handleChangeLang([]);
-        handleChangeOrder('');
-        setRefreshDuration(0);
+        let search = qs.parse(location.search, {arrayFormat: 'comma'});
+        search.languages = [];
+        search.order_by = undefined;
+        search.limit = undefined;
+
         localStorage.removeItem(("duration"));
+        setAuto(0);
+        setRefreshDuration(0);
+
+        navigate(`?${qs.stringify(search, {arrayFormat: 'comma'})}`);
     }, [setAuto, handleChangeLang, handleChangeOrder, handleChangeOrder]);
+
+    const MenuList = (props: MenuListProps) => (
+        <components.MenuList {...props}>
+            <div className='subfilters__name'>{`${props.selectProps.name}:`}</div>
+            {props.children}
+        </components.MenuList>
+    );
+
+    const Option = (props: OptionProps) => (
+        <components.Option {...props}>
+            <label className='subfilters__option'>
+                <input
+                    type="checkbox"
+                    checked={props.isSelected}
+                    onChange={() => {}}
+                />
+                {props.data.name}
+            </label>
+        </components.Option>
+    );
+
+    const SelectContainer = ({children, ...props}: ContainerProps) => (
+        <components.SelectContainer {...props}>
+            {children}
+            <p className='subfilters__name-input'>{props.selectProps.name}</p>
+        </components.SelectContainer>
+    );
 
     return (
         <>
@@ -97,6 +145,7 @@ function Filters(props) {
             </div>
             <div className="watchlist__tools__filters">
                 <Select
+                    components={{MenuList, Option, SelectContainer}}
                     options={autorefresh}
                     value={refreshDuration}
                     name="AUTOREFRESH"
@@ -110,20 +159,22 @@ function Filters(props) {
                     }}
                 />
                 <Select
+                    components={{MenuList, Option, SelectContainer}}
                     options={orderBy}
                     value={order}
                     name="ORDER"
                     className="subfilters"
                     classNamePrefix="subfilters"
                     isSearchable={false}
-                    closeMenuOnSelect={false}
                     getOptionLabel={o => o.name}
                     getOptionValue={o => o.value}
                     onChange={(order) => {
                         handleChangeOrder(order.value)
                     }}
                 />
+
                 <Select
+                    components={{MenuList, Option, SelectContainer}}
                     options={languages}
                     value={lang}
                     name="LANGUAGES"
