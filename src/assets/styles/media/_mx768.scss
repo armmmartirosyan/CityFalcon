@@ -13,11 +13,12 @@ html {
   flex-wrap: wrap;
   justify-content: space-between;
 
-  & .subfilters{
+  & .subfilters {
     &__name-input {
       font-size: 1rem;
       bottom: .3rem;
     }
+
     &__control {
       width: 15rem;
     }

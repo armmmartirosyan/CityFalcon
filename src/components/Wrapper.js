@@ -2,9 +2,10 @@ import React, {useCallback, useEffect} from 'react';
 import Header from "./Header";
 import qs from "query-string";
 import {useLocation, useNavigate} from "react-router-dom";
+import {useSelector} from "react-redux";
 
 function Wrapper(props) {
-    let {nextPageToken} = props;
+    let nextPageToken = useSelector(state => state.story.nextPageToken);
     let location = useLocation();
     let navigate = useNavigate();
 

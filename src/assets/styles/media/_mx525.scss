@@ -2,16 +2,17 @@ html {
   font-size: calc(100vw / (525 / 10));
 }
 
-body{
+body {
   font-size: 1.2rem;
 }
 
 .watchlist {
-  & .subfilters{
+  & .subfilters {
     &__name-input {
       width: 50%;
       overflow: hidden;
     }
+
     &__control {
       width: 10rem;
     }

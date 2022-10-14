@@ -2,56 +2,69 @@ html {
   font-size: calc(100vw / (320 / 10));
 }
 
-.watchlist{
+.watchlist {
   &__title {
     font-size: 1.9rem;
   }
+
   &__head {
     flex-direction: column;
   }
-  &__tools{
+
+  &__tools {
     &__filters {
       flex-wrap: wrap;
       background-color: unset;
       padding: 0;
-      &__reset{
+
+      &__reset {
         display: none;
       }
     }
-    &__text{
+
+    &__text {
       display: none;
     }
+
     &__box {
       width: 4rem;
       height: 4rem;
       padding: 1rem 1rem 1rem 2rem;
       background-color: #fff;
+
       &.open {
         position: relative;
         background-color: #fff;
-        &:before{
+
+        &:before {
           border-bottom: 1.5rem solid #fff;
         }
       }
     }
   }
-  & .subfilters{
+
+  & .subfilters {
     width: 100%;
     border-bottom: 0.1rem solid #f7f7f7;
-    &__control{
+
+    &__control {
       width: 100%;
-      &--menu-is-open{
+
+      &--menu-is-open {
         width: 100%;
       }
     }
+
     &__single-value {
       bottom: 0.4rem;
     }
-    &__indicator.subfilters__dropdown-indicator{
+
+    &__indicator.subfilters__dropdown-indicator {
       display: none;
     }
   }
 }
+
 .story {
   &__body {
     width: 100%;
@@ -61,17 +74,21 @@ html {
     width: 100%;
     justify-content: space-between;
     padding: 1.3rem 1.5rem;
-    &__percent{
+
+    &__percent {
       border: 0 !important;
       padding: 0;
     }
   }
-  &__row{
+
+  &__row {
     flex-wrap: wrap;
   }
+
   &__footer__btn {
     flex-direction: column;
-    & svg{
+
+    & svg {
       margin: 0 0 0.5rem 0;
     }
   }

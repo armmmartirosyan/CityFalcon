@@ -7,8 +7,8 @@ let initialState = {
     nextPageToken: '',
 };
 
-export default function reducer(state = initialState, action){
-    switch (action.type){
+export default function reducer(state = initialState, action) {
+    switch (action.type) {
         case GET_STORIES_REQUEST: {
             return {
                 ...state,
@@ -30,7 +30,7 @@ export default function reducer(state = initialState, action){
                 message: action.payload.message
             }
         }
-        default:{
+        default: {
             return {
                 ...state
             }

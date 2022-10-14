@@ -111,11 +111,15 @@ function Filters(props) {
     const Option = (props: OptionProps) => (
         <components.Option {...props}>
             <label className='subfilters__option'>
-                <input
-                    type="checkbox"
-                    checked={props.isSelected}
-                    onChange={() => {}}
-                />
+                {
+                    props.value !== 'all' ? (
+                        <input
+                            type="checkbox"
+                            checked={props.isSelected}
+                            onChange={() => {}}
+                        />
+                    ) : null
+                }
                 {props.data.name}
             </label>
         </components.Option>
@@ -183,6 +187,7 @@ function Filters(props) {
                     isSearchable={false}
                     closeMenuOnSelect={false}
                     isClearable={false}
+                    hideSelectedOptions={false}
                     isMulti
                     getOptionLabel={l => l.name}
                     getOptionValue={l => l.value}

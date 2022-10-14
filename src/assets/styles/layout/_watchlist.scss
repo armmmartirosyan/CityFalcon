@@ -17,15 +17,16 @@
   .subfilters {
     position: relative;
 
-    &__option{
+    &__option {
       display: flex;
       align-items: center;
-      & input{
+
+      & input {
         margin-right: .5rem;
       }
     }
 
-    &__placeholder{
+    &__placeholder {
       font-size: 1.3rem;
       font-weight: bold;
       font-stretch: normal;
@@ -141,10 +142,8 @@
     flex-wrap: wrap;
     margin-bottom: 1.3rem;
 
-    &.open {
-      & ~ .watchlist__tools__filters {
-        display: flex !important;
-      }
+    &.open ~ .watchlist__tools__filters {
+      display: flex !important;
     }
 
     &__box {
