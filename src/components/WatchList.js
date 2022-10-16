@@ -1,57 +1,25 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React from 'react';
 import Filters from "./Filters";
 import Story from "./Story";
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "react-redux";
 import _ from "lodash";
-import {getStoriesRequest} from "../store/actions/story";
-import {useLocation} from "react-router-dom";
 
 function WatchList() {
-    const dispatch = useDispatch();
-    const [auto, setAuto] = useState(0);
-    const location = useLocation();
-    let data = useSelector(state => state.story.data);
-    let status = useSelector(state => state.story.status);
-    let interval;
-
-    const refreshFunc = useCallback(() => {
-        dispatch(getStoriesRequest(location.search));
-    }, [dispatch]);
-
-    useEffect(() => {
-        let duration = localStorage.getItem('duration');
-        clearInterval(interval);
-
-        if (duration) {
-            setAuto(duration);
-            duration = +duration * 1000;
-            interval = setInterval(refreshFunc, duration);
-        }
-
-        return () => {
-            clearInterval(interval)
-        }
-    }, [auto]);
+    const stories = useSelector(state => state.story.stories);
+    const status = useSelector(state => state.story.status);
 
     return (
         <section className="watchlist">
             <div className='watchlist__head'>
                 <h1 className="watchlist__title">Watchlist Name</h1>
-                <Filters
-                    auto={auto}
-                    setAuto={setAuto}
-                    interval={interval}
-                />
+                <Filters/>
             </div>
             <div className="watchlist__content">
                 {
-                    status === 'request' ? <div>Loading...</div> : null
-                }
-                {
-                    !_.isEmpty(data.stories) ? (
-                        data.stories.map(story => (
+                    stories.length ? (
+                        stories.map(story => (
                             <Story
-                                key={story.id}
+                                key={_.uniqueId()}
                                 title={story.title}
                                 desc={story.description}
                                 score={story.score}
@@ -66,10 +34,13 @@ function WatchList() {
                 }
                 {
                     status === "fail"
-                    || (data && _.isEmpty(data.stories) && status !== 'request') ?
+                    || (!stories.length && status !== 'request') ?
                         <div>No data</div> : null
                 }
             </div>
+            {
+                status === 'request' ? <div className='loading'>Loading...</div> : null
+            }
         </section>
     );
 }

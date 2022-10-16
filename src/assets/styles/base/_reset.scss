@@ -13,11 +13,13 @@ body {
   background-color: #fff;
   color: #000;
   font-family: Lato, sans-serif;
+  overflow: hidden;
 }
 
 .wrapper {
   width: 100vw;
   height: 100vh;
+  overflow: auto;
 }
 
 .main {

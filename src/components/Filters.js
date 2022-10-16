@@ -1,4 +1,5 @@
 import React, {useCallback, useEffect, useState} from 'react';
+import Select, {components, MenuListProps, OptionProps, ContainerProps} from 'react-select';
 import {autorefresh, orderBy, languages} from "../data/filters";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faFilter, faRotateRight} from "@fortawesome/free-solid-svg-icons";
@@ -6,27 +7,45 @@ import {useLocation, useNavigate} from "react-router-dom";
 import {getStoriesRequest} from "../store/actions/story";
 import {useDispatch} from "react-redux";
 import classNames from "classnames";
-import Select, {components, MenuListProps, OptionProps, ContainerProps} from 'react-select';
 import qs from "query-string";
+import _ from "lodash";
 
-function Filters(props) {
-    const {auto, setAuto, interval} = props;
+export default function Filters() {
     const navigate = useNavigate();
     const location = useLocation();
     const dispatch = useDispatch();
     const [lang, setLang] = useState([]);
     const [order, setOrder] = useState('');
     const [isAppearFilters, setIsAppearFilters] = useState(false);
-    const [refreshDuration, setRefreshDuration] = useState();
+    const [auto, setAuto] = useState(0);
+    let interval;
 
+    const refreshFunc = useCallback(() => {
+        dispatch(getStoriesRequest(location.search));
+    }, [dispatch]);
+
+    useEffect(() => {
+        let duration = localStorage.getItem('duration');
+        clearInterval(interval);
+
+        if (duration) {
+            duration = +duration * 1000;
+            interval = setInterval(refreshFunc, duration);
+        }
+
+        return () => {
+            clearInterval(interval)
+        }
+    }, [auto]);
+    
     useEffect(() => {
         let search = qs.parse(location.search);
         let lang = search.languages ? search.languages.split(',') : [];
-        let autorefreshDuration = localStorage.getItem('duration');
+        let duration = localStorage.getItem('duration');
 
         setOrder(orderBy.find(o => o.value === (search.order_by)) || '');
         setLang(languages.filter(l => lang.includes(l.value)));
-        setRefreshDuration(autorefresh.find(a => +a.value === +autorefreshDuration));
+        setAuto(autorefresh.find(a => +a.value === +duration));
 
         dispatch(getStoriesRequest(location.search));
     }, [location.search]);
@@ -39,7 +58,6 @@ function Filters(props) {
         }else{
             search.order_by = tempValue;
         }
-
         search.limit = 20;
 
         navigate(`?${qs.stringify(search, {arrayFormat: 'comma'})}`);
@@ -67,18 +85,16 @@ function Filters(props) {
     }, [navigate, location.search]);
 
     const handleChangeAuto = useCallback((numb) => {
-        if(+auto === +numb){
+        if(!_.isEmpty(auto) && auto.value === numb){
             setAuto(0);
-            setRefreshDuration(0);
             localStorage.removeItem(("duration"));
         }else{
-            setAuto(numb)
-            setRefreshDuration(autorefresh.find(a => +a.value === +numb));
+            setAuto(autorefresh.find(a => +a.value === numb))
             localStorage.setItem("duration", numb);
         }
 
         clearInterval(interval);
-    }, [setAuto, interval, auto, setRefreshDuration]);
+    }, [setAuto, interval, auto]);
 
     const handleAppearFilters = useCallback(() => {
         setIsAppearFilters(!isAppearFilters);
@@ -96,10 +112,9 @@ function Filters(props) {
 
         localStorage.removeItem(("duration"));
         setAuto(0);
-        setRefreshDuration(0);
 
         navigate(`?${qs.stringify(search, {arrayFormat: 'comma'})}`);
-    }, [setAuto, handleChangeLang, handleChangeOrder, handleChangeOrder]);
+    }, [setAuto, navigate, location.search]);
 
     const MenuList = (props: MenuListProps) => (
         <components.MenuList {...props}>
@@ -151,7 +166,7 @@ function Filters(props) {
                 <Select
                     components={{MenuList, Option, SelectContainer}}
                     options={autorefresh}
-                    value={refreshDuration}
+                    value={auto}
                     name="AUTOREFRESH"
                     className="subfilters"
                     classNamePrefix="subfilters"
@@ -205,5 +220,3 @@ function Filters(props) {
         </>
     );
 }
-
-export default Filters;

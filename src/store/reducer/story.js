@@ -2,7 +2,7 @@ import {GET_STORIES_REQUEST, GET_STORIES_SUCCESS, GET_STORIES_FAIL} from "../act
 
 let initialState = {
     status: '',
-    data: {},
+    stories: [],
     message: '',
     nextPageToken: '',
 };
@@ -19,7 +19,7 @@ export default function reducer(state = initialState, action) {
             return {
                 ...state,
                 status: action.payload.status,
-                data: {...state.data, ...action.payload.data},
+                stories: [...state.stories, ...action.payload.data.stories],
                 nextPageToken: action.payload.data.next_page_token,
             }
         }
